@@ -1,0 +1,41 @@
+﻿﻿@{
+    ViewData["Title"] = "Detail";
+}
+
+@model BookDto
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-9">
+            <input hidden asp-for="BookId" />
+
+            <div class="card">
+                <img src="@Model.ImageUrl" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <div class="badge bg-primary">Kategori : @Model.CategoryName</div>
+                    <p class="card-text"> @Model.Author</p>
+                    <p class="card-text"> <strong>Publisher:</strong> @Model.Publisher</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-warning">Price : @Model.UnitPrice.ToString("c")</h4>
+                    <div class="d-grid">
+                        <input asp-for="Count" class="form-control mb-4" />
+                        <button type="submit" class="btn btn-primary form-control btn-lg" style="height:50px;">Add to Cart</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</form>

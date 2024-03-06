@@ -1,0 +1,88 @@
+﻿@model IEnumerable<BookDto>
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-white">Book List</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a class="btn btn-outline-primary" asp-action="BookCreate"><i class="bi bi-plus-square"></i> Create New Book</a>
+
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Category Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Author
+                    </th>
+                    <th>
+                        Publisher
+                    </th>
+                    <th>
+                        ISBNNO
+                    </th>
+                    <th>
+                        Stock
+                    </th>
+                    <th class="text-center">EDIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.CategoryName
+                        </td>
+                        <td>
+                            @item.UnitPrice.ToString("c")
+                        </td>
+                        <td>
+                            @item.Author
+                        </td>
+                        <td>
+                            @item.Publisher
+                        </td>
+                        <td>
+                            @item.ISBNNO
+                        </td>
+                        <td>
+                            @item.Stock
+                        </td>
+                        <td>
+                            <a class="btn btn-success" asp-controller="Book" asp-action="BookUpdate" asp-route-bookId="@item.BookId">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a class="btn btn-danger" asp-controller="Book" asp-action="BookDelete" asp-route-bookId="@item.BookId">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

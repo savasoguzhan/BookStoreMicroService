@@ -1,0 +1,59 @@
+﻿@using BookStore.Web.Models.AuthDtos
+@model RegisterationRequestDto
+
+<form method="post">
+    <div class="container border-info-subtle p-4 mt-5">
+        <div class="row text-center">
+            <h1>Register</h1>
+        </div>
+        <div class="row text-center">
+            <div asp-validation-summary="All" class="text-danger">
+            </div>
+            <div class="row">
+                <div class="col-6 offset-3 pb-4">
+                    <label asp-for="FullName" class="mb-1"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="Name and Surname..." />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="col-6 offset-3 pb-4">
+                    <label asp-for="Email" class="mb-1"></label>
+                    <input asp-for="Email" class="form-control" type="email" placeholder="Email..." />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-6 offset-3 pb-4">
+                    <div><label asp-for="Password" class="mb-1 text-start"></label></div>
+                    <input asp-for="Password" class="form-control" type="password" placeholder="Passowrd..." />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-6 offset-3 pb-4">
+                    <label asp-for="BrithData" class="mb-1">Birthday</label>
+                    <input asp-for="BrithData" class="form-control" type="date" placeholder="Brithday..." />
+                    <span asp-validation-for="BrithData" class="text-danger"></span>
+                </div>
+                <div class="col-6 offset-3 pb-4">
+                    <label asp-for="PhoneNumber" class="mb-1">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control" type="tel" placeholder="Phone..." />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="col-6 offset-3 pb-4">
+                    <label asp-for="Role" class="mb-1"></label>
+                    <select asp-for="Role" class="form-select" asp-items="@ViewBag.RoleList">
+                        <option disabled selected>**Chose Role**</option>
+                    </select>
+                    
+                </div>
+                <div class="col-6 offset-3 pb-4">
+                    <button type="submit" class="form-control btn btn-primary" value="Submit">Register</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

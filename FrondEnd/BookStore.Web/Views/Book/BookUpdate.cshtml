@@ -1,0 +1,79 @@
+﻿@model BookDto
+<form asp-action="BookUpdate">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-white text-center">Update Book</h1>
+        <input  hidden asp-for="BookId"/>
+        <hr />
+        <div class="row">
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Name</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Category Name</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Unit Price</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice"></span>
+            </div>
+
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Stock</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">ISBNNO</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="ISBNNO" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Publisher</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Publisher" class="form-control" />
+                <span asp-validation-for="Publisher"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Author</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author"></span>
+            </div>
+
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">ImageUrl</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input class="form-control" />
+            </div>
+            <div class="col-5 offset-2">
+
+                <a asp-action="BookIndex" class="btn-primary btn form-control ">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Create" class="btn btn-success form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
