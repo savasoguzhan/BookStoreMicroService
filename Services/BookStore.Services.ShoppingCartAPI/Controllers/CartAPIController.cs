@@ -116,6 +116,7 @@ namespace BookStore.Services.ShoppingCartAPI.Controllers
         {
             try
             {
+                var bookStock = await _bookService.GetBooks();
                 var cartHeaderFromDb = await _dbContext.CartHeaders.AsNoTracking().FirstOrDefaultAsync(u => u.UserId ==cartDto.CartHeader.UserId );
                 if ( cartHeaderFromDb == null )
                 {
@@ -129,16 +130,28 @@ namespace BookStore.Services.ShoppingCartAPI.Controllers
                 }
                 else
                 {
+                    //Stock Control
+                    foreach(var cartDetail in cartDto.CartDetails)
+                    {
+                        var book = bookStock.FirstOrDefault(x =>x.BookId == cartDetail.BookId);
+                        if(cartDetail.Count > book.Stock)
+                        {
+                            _response.IsSuccess = false;
+                            _response.Message = $"There is no stock for the book {book.Name}.";
+                            return _response;
+                        }
+                    }
                     //check if details has same book
                     var cartDetailsFromDb = await _dbContext.CartDetails.AsNoTracking().FirstOrDefaultAsync(
                         u => u.BookId == cartDto.CartDetails.First().BookId &&
                     u.CartHeaderId == cartHeaderFromDb.CartHeaderId);
-                    if(cartDetailsFromDb == null )
+                    if(cartDetailsFromDb == null)
                     {
                         cartDto.CartDetails.First().CartHeaderId = cartHeaderFromDb.CartHeaderId;
                         _dbContext.CartDetails.Add(_mapper.Map<CartDetails>(cartDto.CartDetails.First()));
                         await _dbContext.SaveChangesAsync();
                     }
+                    
                     else
                     {
                         cartDto.CartDetails.First().Count += cartDetailsFromDb.Count;

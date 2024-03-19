@@ -4,6 +4,7 @@ using BookStore.Services.ShoppingCartAPI.Data;
 using BookStore.Services.ShoppingCartAPI.Extension;
 using BookStore.Services.ShoppingCartAPI.Service;
 using BookStore.Services.ShoppingCartAPI.Service.IService;
+using BookStore.Services.ShoppingCartAPI.Utililty;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -35,10 +36,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 
-//httpCleint
-builder.Services.AddHttpClient("Book", x => x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:BookAPI"]));
+builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddHttpClient("Discount", x => x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:DiscountAPI"]));
+builder.Services.AddScoped<BackendApiAuthHttpClientHandler>();
+
+//httpCleint
+builder.Services.AddHttpClient("Book", x => x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:BookAPI"])).AddHttpMessageHandler<BackendApiAuthHttpClientHandler>();
+
+builder.Services.AddHttpClient("Discount", x => x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:DiscountAPI"])).AddHttpMessageHandler<BackendApiAuthHttpClientHandler>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
